@@ -80,7 +80,19 @@ function Gameboard() {
     return playerWin;
   }
 
-  return {getBoard, makeMove, checkForWin};
+  const gameIsTie = function() {
+    let isTie = true;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if ((board[i][j]).getValue() == "-") {
+          return false;
+        }
+      }
+    }
+    return isTie;
+  }
+
+  return {getBoard, makeMove, checkForWin, gameIsTie};
 }
 
 function Cell() {
@@ -144,12 +156,15 @@ function GameController() {
 
   const swapActivePlayer = () => activePlayer = activePlayer === playerO ? playerX : playerO;
 
+
   const playTurn = (row, col) => {
-    let winningPlayer = "no-one"; 
+    let winningPlayer = "unknown"; 
     board.makeMove(row, col, activePlayer);
     if (board.checkForWin(activePlayer)) {
       winningPlayer = activePlayer.getName();
-    };
+    } else if (board.gameIsTie()) {
+      winningPlayer = "no-one";    
+    } 
     swapActivePlayer();
     return winningPlayer;
   };
@@ -193,10 +208,12 @@ function ScreenController() {
     row = event.target.dataset.row;
     col = event.target.dataset.col;
     winner = game.playTurn(row, col);
-    if (winner != "no-one") {
+    if (winner == "no-one") {
+      updateBoard();
+      status.textContent = "Drawn Game!";
+    } else if (winner != "unknown") {
       updateBoard();
       status.textContent = `Victory to ${winner}!`;
-      return;
     } else {
       updateBoard();
     }
