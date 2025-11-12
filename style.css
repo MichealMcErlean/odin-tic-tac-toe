@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+body {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 200px 1fr 100px;
+}
+
+header {
+  display:grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+}
+
+main {
+  display:grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+}
+
+footer {
+  display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+}
+
+.board{
+  display: grid;
+  grid-template-rows: 150px 150px 150px;
+  grid-template-columns: 150px 150px 150px;
+  gap: 30px;
+  background-color: black;
+}
+
+.board > button {
+  border: none;
+  background-color: grey;
+  color: black;
+  font-size: 4.8rem;
+  font-weight: bold;
+  height: 150px;
+  width: 150px;
+
+}
