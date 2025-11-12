@@ -162,9 +162,10 @@ function GameController() {
 }
 
 function ScreenController() {
-  const game= GameController();
+  let game= GameController();
   const status = document.querySelector(".playerStatus");
   const display = document.querySelector(".board");
+  const newGame = document.querySelector(".newGameButton");
 
   const updateBoard = function() {
     display.textContent = "";
@@ -200,6 +201,12 @@ function ScreenController() {
       updateBoard();
     }
   }
+
+  newGame.addEventListener('click', function() {
+    game = GameController();
+    updateBoard();
+  });
+
   updateBoard();
 }
 
